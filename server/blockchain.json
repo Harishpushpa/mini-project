@@ -16,5 +16,16 @@
     },
     "previousHash": "0fb562d6db91424bb6c63e6e1bbaec315e9e4c835bc16fdff697529139160b50",
     "hash": "858052c51f7c3146173e52354ffacfcdbf6b024c1bfb204053fb2e0c8ad499b5"
+  },
+  {
+    "index": 2,
+    "timestamp": "1746545186242",
+    "data": {
+      "email": "qwe@gmail.com",
+      "role": "Farmer",
+      "registeredAt": "2025-05-06T15:26:26.242Z"
+    },
+    "previousHash": "858052c51f7c3146173e52354ffacfcdbf6b024c1bfb204053fb2e0c8ad499b5",
+    "hash": "a9dff6b11a635be177e2302bc3f11f51311ec8c0d8ba54a9176c716c4efdac90"
   }
 ]
