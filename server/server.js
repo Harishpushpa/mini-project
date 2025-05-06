@@ -1,49 +1,69 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const app = express();
 const Port = 8000;
 
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
 
-// Database connection
+// Database connection (ensure to connect to your MongoDB database)
 require("./db/connections");
 
 // Import the user model
-const User = require("./Models/users"); 
+const User = require("./Models/users");
 const Middleman = require("./Models/Middleman");
 const Farmer = require("./Models/Farmer");
 
-// Route to register a user
-// Registration Endpoint
+// Blockchain class
+const Blockchain = require("./blockchain");
+const userChain = new Blockchain(); // create chain instance
+
+
+
+
+
+
+
+// Register a new user
 app.post("/", async (req, res) => {
   try {
     const { email, password, role } = req.body;
 
-    // Validate fields
     if (!email || !password || !role) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Ensure valid role selection
     if (role !== "Farmer" && role !== "Middleman") {
       return res.status(400).json({ error: "Invalid role selected" });
     }
 
-    const existinguser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email });
 
-    if (existinguser) {
+    if (existingUser) {
       console.log(`Attempted registration with existing email: ${email}`);
-      res.status(400).json({ message: "The email already exists" });
+      return res.status(400).json({ message: "The email already exists" });
     }
 
-    // Save user to database
     const newUser = new User({ email, password, role });
     const result = await newUser.save();
-    console.log(`New user registered: ${email} with role ${role}`);
-    res.status(201).json({ message: "User registered successfully", user: result });
+
+    // Add to blockchain
+    const block = userChain.addBlock({
+      email,
+      role,
+      registeredAt: new Date().toISOString()
+    });
+
+    console.log(`User registered on blockchain: Block hash - ${block.hash}`);
+
+    res.status(201).json({
+      message: "User registered successfully and added to blockchain",
+      user: result,
+      blockHash: block.hash
+    });
   } catch (err) {
     console.error("Error during registration:", err);
     res.status(500).json({ error: "Error saving user" });
@@ -55,39 +75,57 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password, role } = req.body;
 
-    // Validate fields
     if (!email || !password || !role) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Find the user by email
+    // Find the user by email in the database
     const logindata = await User.findOne({ email });
-
-    // Check if user exists
     if (!logindata) {
-      console.log(`Login attempt failed for non-existing email: ${email}`);
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
     // Check user credentials
-    const user = await User.findOne({ email, password, role });
-    if (!user) {
-      console.log(`Login failed for email: ${email} with incorrect password or role`);
+    if (logindata.password !== password || logindata.role !== role) {
       return res.status(401).json({ error: "Invalid email, password, or role" });
     }
 
+    // Blockchain Verification: Check if the user exists in the blockchain
+    const userBlock = userChain.chain.find((block) => {
+      return block.data && block.data.email && block.data.email.toLowerCase() === email.toLowerCase();
+    });
+
+    if (!userBlock) {
+      return res.status(401).json({ error: "User not found in blockchain. Possible data tampering." });
+    }
+
+    // Verify the integrity of the blockchain
+    const isValidChain = userChain.isChainValid();
+    if (!isValidChain) {
+      return res.status(500).json({ error: "Blockchain integrity compromised" });
+    }
+
     console.log(`User logged in: ${email} with role ${role}`);
-    // Send a single response
+
     res.status(200).json({
       message: "Login successful",
       user: { name: logindata.name, email: logindata.email, role: logindata.role },
-      logindata
+      logindata,
     });
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ error: "Error logging in" });
   }
 });
+
+
+
+
+
+
+
+
+
 
 // Fetch all middlemen
 app.get("/middlemen", async (req, res) => {
