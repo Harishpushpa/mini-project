@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/middleman.css";
 import { useNavigate } from "react-router-dom"; 
+import CropPriceMarquee from "../component/CropPriceMarquee";
 
 const Middleman = () => {
   const navigate = useNavigate();
@@ -111,6 +112,7 @@ const Middleman = () => {
               <option value="pincode">Sort by Pincode</option>
               <option value="cropType">Sort by Crop Type</option>
             </select>
+            
           </div>
           {/* Search input */}
           <div className="search-container">
@@ -122,6 +124,7 @@ const Middleman = () => {
             />
           </div>
         </div>
+        <CropPriceMarquee/>
 
         <div className="middleman-list">
           {sortedData.map((middleman) => (

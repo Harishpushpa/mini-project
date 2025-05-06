@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/Farmer.css"
 
 export const FarmerProductForm = () => {
   const [formData, setFormData] = useState({
@@ -87,7 +88,6 @@ export const FarmerProductForm = () => {
               id={field.name}
               value={formData[field.name]}
               onChange={handleChange}
-              required
             />
           </div>
         ))}

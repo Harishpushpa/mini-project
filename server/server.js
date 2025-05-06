@@ -20,7 +20,7 @@ const Farmer = require("./Models/Farmer");
 // Blockchain class
 const Blockchain = require("./blockchain");
 const userChain = new Blockchain(); // create chain instance
-
+const customHash = require("./utils/hash"); // Adjust path if needed
 
 
 
@@ -47,7 +47,9 @@ app.post("/", async (req, res) => {
       return res.status(400).json({ message: "The email already exists" });
     }
 
-    const newUser = new User({ email, password, role });
+    const hashedPassword = customHash(password);
+
+    const newUser = new User({ email, password: hashedPassword, role });
     const result = await newUser.save();
 
     // Add to blockchain
@@ -79,18 +81,17 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Find the user by email in the database
     const logindata = await User.findOne({ email });
     if (!logindata) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Check user credentials
-    if (logindata.password !== password || logindata.role !== role) {
+    const hashedInputPassword = customHash(password);
+
+    if (logindata.password !== hashedInputPassword || logindata.role !== role) {
       return res.status(401).json({ error: "Invalid email, password, or role" });
     }
 
-    // Blockchain Verification: Check if the user exists in the blockchain
     const userBlock = userChain.chain.find((block) => {
       return block.data && block.data.email && block.data.email.toLowerCase() === email.toLowerCase();
     });
@@ -99,7 +100,6 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "User not found in blockchain. Possible data tampering." });
     }
 
-    // Verify the integrity of the blockchain
     const isValidChain = userChain.isChainValid();
     if (!isValidChain) {
       return res.status(500).json({ error: "Blockchain integrity compromised" });
@@ -117,6 +117,7 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Error logging in" });
   }
 });
+
 
 
 

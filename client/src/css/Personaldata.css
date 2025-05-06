@@ -1,0 +1,173 @@
+/* Container for the form or personal data card */
+.max-w-lg {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+  
+  /* Heading style */
+  .text-2xl {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Space between form elements */
+  .space-y-4 {
+    margin-bottom: 16px;
+  }
+  
+  /* Label styling */
+  .block {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Input fields for text, date, and other inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Read-only or not editable fields */
+  input[readonly] {
+    background-color: #f7f7f7;
+    cursor: not-allowed;
+  }
+  
+  /* Button styling for form submit and cancel */
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  /* Primary button (Save/Update) */
+  .bg-blue-500 {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .bg-blue-500:hover {
+    background-color: #45a049;
+  }
+  
+  /* Cancel button styling */
+  .bg-gray-400 {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .bg-gray-400:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Secondary button (Edit Details) */
+  .bg-green-500 {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .bg-green-500:hover {
+    background-color: #1976D2;
+  }
+  
+  /* Go Back button */
+  .bg-red-500 {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .bg-red-500:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Space between form items */
+  .flex {
+    display: flex;
+  }
+  
+  .gap-4 {
+    gap: 12px;
+  }
+  
+  .mt-4 {
+    margin-top: 16px;
+  }
+  
+  /* Personal data section for displaying user information */
+  .mt-4 {
+    margin-top: 20px;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .text-gray-800 {
+    color: #333;
+  }
+  
+  .space-y-2 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Form styling for display fields */
+  input[type="text"],
+  input[type="email"],
+  input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Button styles for go back and other actions */
+  button[type="button"],
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  button[type="button"] {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  button[type="button"]:hover,
+  button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  

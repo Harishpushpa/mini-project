@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/personaldata.css"
 
 export const Personaldata = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -88,7 +89,6 @@ export const Personaldata = () => {
             value={formData.name}
             onChange={handleChange}
             className="w-full p-2 border rounded"
-            required
           />
 
           <label className="block">Email (Not Editable)</label>
@@ -126,7 +126,6 @@ export const Personaldata = () => {
             value={formData.phone}
             onChange={handleChange}
             className="w-full p-2 border rounded"
-            required
           />
 
           <label className="block">Address</label>

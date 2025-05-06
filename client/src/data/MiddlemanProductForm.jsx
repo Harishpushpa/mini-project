@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/Middleman.css";
 
 export const MiddlemanProductForm = () => {
   const [formData, setFormData] = useState({
@@ -87,7 +88,7 @@ export const MiddlemanProductForm = () => {
               id={field.name}
               value={formData[field.name]}
               onChange={handleChange}
-              required
+              
             />
           </div>
         ))}

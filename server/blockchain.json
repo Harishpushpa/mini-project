@@ -27,5 +27,16 @@
     },
     "previousHash": "858052c51f7c3146173e52354ffacfcdbf6b024c1bfb204053fb2e0c8ad499b5",
     "hash": "a9dff6b11a635be177e2302bc3f11f51311ec8c0d8ba54a9176c716c4efdac90"
+  },
+  {
+    "index": 3,
+    "timestamp": "1746554301763",
+    "data": {
+      "email": "nock@gmail.com",
+      "role": "Farmer",
+      "registeredAt": "2025-05-06T17:58:21.763Z"
+    },
+    "previousHash": "a9dff6b11a635be177e2302bc3f11f51311ec8c0d8ba54a9176c716c4efdac90",
+    "hash": "54415bf91588e2ad15674e7ecee100bca6db3f7a7564c6b2bf8ee8f1474fd7f5"
   }
 ]
